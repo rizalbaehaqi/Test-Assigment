@@ -1,0 +1,15 @@
+./.Resources/**/Test.js
+**test**
+**/test.js
+**/Test.js
+# Editor directories and files
+./.vscode
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.sln
+*.sw?
+**node_modules/

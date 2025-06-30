@@ -1,0 +1,67 @@
+{
+  "info": {
+    "name": "Developer API Komisi & Pembayaran",
+    "_postman_id": "12345678-abcd-efgh-ijkl-9876543210",
+    "description": "Collection untuk testing API Komisi dan Pembayaran",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get Komisi",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/index.php?action=get_komisi",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "index.php"],
+          "query": [
+            { "key": "action", "value": "get_komisi" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Pembayaran",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/index.php?action=get_pembayaran",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "index.php"],
+          "query": [
+            { "key": "action", "value": "get_pembayaran" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Add Pembayaran",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"penjualan_id\": 1,\n  \"payment_date\": \"2025-06-28\",\n  \"amount_paid\": 500000,\n  \"notes\": \"Cicilan pertama\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/index.php?action=add_pembayaran",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "index.php"],
+          "query": [
+            { "key": "action", "value": "add_pembayaran" }
+          ]
+        }
+      }
+    }
+  ]
+}

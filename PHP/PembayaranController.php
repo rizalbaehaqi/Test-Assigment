@@ -1,5 +1,5 @@
 <?php
-require_once 'koneksi.php';
+require_once 'Koneksi.php';
 
 function getPembayaran($mysqli) {
     $query = "SELECT * FROM pembayaran";
@@ -15,19 +15,44 @@ function getPembayaran($mysqli) {
 function addPembayaran($mysqli) {
     $input = json_decode(file_get_contents('php://input'), true);
 
-    $penjualan_id = $mysqli->real_escape_string($input['penjualan_id']);
-    $payment_date = $mysqli->real_escape_string($input['payment_date']);
-    $amount_paid = $mysqli->real_escape_string($input['amount_paid']);
-    $notes = $mysqli->real_escape_string($input['notes']);
+    // Validasi kosong
+    if (empty($input['penjualan_id']) || empty($input['payment_date']) || empty($input['amount_paid'])) {
+        http_response_code(400);
+        echo json_encode(["error" => "Semua field wajib diisi."]);
+        return;
+    }
 
-    $query = "INSERT INTO pembayaran (penjualan_id, payment_date, amount_paid, notes)
-              VALUES ('$penjualan_id', '$payment_date', '$amount_paid', '$notes')";
+    // Validasi amount > 0
+    if ($input['amount_paid'] <= 0) {
+        http_response_code(400);
+        echo json_encode(["error" => "Jumlah pembayaran harus lebih dari 0."]);
+        return;
+    }
 
-    if ($mysqli->query($query)) {
+    // Validasi penjualan_id ada
+    $cek = $mysqli->prepare("SELECT id FROM penjualan WHERE id = ?");
+    $cek->bind_param("i", $input['penjualan_id']);
+    $cek->execute();
+    $cek->store_result();
+    if ($cek->num_rows == 0) {
+        http_response_code(400);
+        echo json_encode(["error" => "ID Penjualan tidak ditemukan."]);
+        return;
+    }
+
+    // Simpan
+    $stmt = $mysqli->prepare("INSERT INTO pembayaran (penjualan_id, payment_date, amount_paid, notes)
+        VALUES (?, ?, ?, ?)");
+    $stmt->bind_param(
+        "isis",
+        $input['penjualan_id'],
+        $input['payment_date'],
+        $input['amount_paid'],
+        $input['notes']
+    );
+
+    if ($stmt->execute()) {
         echo json_encode(["status" => "success"]);
     } else {
-        http_response_code(500);
-        echo json_encode(["error" => $mysqli->error]);
-    }
-}
 ?>
+

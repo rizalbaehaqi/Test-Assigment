@@ -1,0 +1,14 @@
+{
+  "name": "trial-assigment",
+  "version": "1.0.0",
+  "description": "Project ini dibuat sebagai jawaban dari soal developer pada file PDF.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "rizalbaehaqi.id@gmail.com",
+  "license": "ISC",
+  "type": "module",
+  "private": "true"
+}
