@@ -4,7 +4,7 @@ function App() {
   const [komisi, setKomisi] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/index.php?action=get_komisi")
+    fetch("http://localhost:8000/index.php?action=get_komisi")
       .then((res) => res.json())
       .then((data) => setKomisi(data))
       .catch((err) => console.error("Error:", err));

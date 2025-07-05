@@ -1,5 +1,5 @@
 <?php
-require_once 'koneksi.php';
+require_once 'Koneksi.php';
 
 function getKomisi($mysqli) {
     $query = "SELECT 
